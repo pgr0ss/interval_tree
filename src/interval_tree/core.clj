@@ -17,8 +17,8 @@
         left-of-center (left-of-x-center x-center sorted-intervals)
         intersecting-center (intersecting-x-center x-center sorted-intervals)
         right-of-center (right-of-x-center x-center sorted-intervals)
-        left-tree (if (empty? left-of-center) nil (apply new-tree left-of-center))
-        right-tree (if (empty? right-of-center) nil (apply new-tree right-of-center))]
+        left-tree (if-not (empty? left-of-center) (apply new-tree left-of-center))
+        right-tree (if-not (empty? right-of-center) (apply new-tree right-of-center))]
     {:x-center x-center
      :intersecting-x-center intersecting-center
      :left-tree left-tree
