@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [interval-tree.core :as tree]))
 
-(deftest new
+(deftest tree
   (testing "single interval"
     (let [t (tree/new-tree [5 10])]
       (is (empty? (tree/includes-point t 3)))
@@ -26,4 +26,9 @@
   (testing "lots of intervals"
     (let [t (tree/new-tree [5 10] [3 12] [11 12] [1 2] [4 6] [15 20] [3 10])]
       (is (= [[3 10] [3 12] [4 6] [5 10]] (tree/includes-point t 6)))
-      (is (= [[1 2]] (tree/includes-point t 1))))))
+      (is (= [[1 2]] (tree/includes-point t 1)))))
+
+  (testing "works with strings"
+    (let [t (tree/new-tree ["hello" "world"] ["apple" "mango"] ["pear" "yuca"])]
+      (is (= [["apple" "mango"] ["hello" "world"]] (tree/includes-point t "lemon")))
+      (is (= [["apple" "mango"]] (tree/includes-point t "banana"))))))
